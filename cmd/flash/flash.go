@@ -10,7 +10,7 @@ import (
 	"github.com/rwcarlsen/flashcard/flash"
 )
 
-var sw = flag.Float64("sw", 1, "score weight for flash probability")
+var sw = flag.Float64("sw", 2, "score weight for flash probability")
 var tw = flag.Float64("tw", 1, "last view weight for flash probability")
 var back = flag.Bool("back", false, "flash card backs instead of fronts")
 var count = flag.Int("n", 5, "number of times/cards to flash")
