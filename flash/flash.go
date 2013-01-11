@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	initScore = 0
+	initScore = 0.00001
 )
 
 type Set struct {
@@ -51,7 +51,7 @@ func (s *Set) Next(scoreWeight, timeWeight float64) *Card {
 	r := rand.Float64()
 	index := -1
 	for i, v := range s.bounds {
-		if r < v {
+		if r <= v {
 			index = i
 			break
 		}
@@ -99,7 +99,8 @@ func (s *Set) newestView() time.Time {
 }
 
 func (s *Set) weighted(c *Card, sw, tw float64, oldest, newest time.Time) float64 {
-	return (1 - c.Score()) * sw + float64(newest.Sub(c.LastView())) / float64(newest.Sub(oldest)) * tw
+	// the .0001 is to prevent divide by zero
+	return (1 - c.Score()) * sw + float64(newest.Sub(c.LastView())) / (float64(newest.Sub(oldest))+.00001) * tw
 }
 
 type Card struct {
