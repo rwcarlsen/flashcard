@@ -2,7 +2,6 @@
 package flash
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"encoding/json"
@@ -70,9 +69,7 @@ func (s *Set) calcBounds(scoreWeight, timeWeight float64) {
 	newest := s.newestView()
 	norm := 0.0
 	for _, c := range s.Cards {
-		w := s.weighted(c, sw, tw, oldest, newest)
-		norm += w
-		fmt.Println("Card-front: ", c.Front, ", Weight: ", w)
+		norm += s.weighted(c, sw, tw, oldest, newest)
 	}
 
 	s.bounds[0] = s.weighted(s.Cards[0], sw, tw, oldest, newest) / norm
