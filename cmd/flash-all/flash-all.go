@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"flag"
+	"text/tabwriter"
 
 	"github.com/rwcarlsen/flashcard/flash"
 )
@@ -30,19 +31,14 @@ func main() {
 	}
 	f.Close()
 
-	fmt.Println(fw("Front", w), fw("Back", w), fw ("Score", 8))
-	fmt.Println(fw("-------", w), fw("------", w), fw("------", 8))
+    writ := tabwriter.NewWriter(os.Stdout, 8, 4, 1, ' ', 0)
+
+	fmt.Fprint(writ, "Front\tBack\tScore\n")
+	fmt.Fprint(writ, "-------\t------\t------\n")
 	for _, c := range set.Cards {
-		fmt.Println(fw(c.Front, w), fw(c.Back, w), fw(c.Score(), 8))
+		fmt.Fprintf(writ, "%v\t%v\t%v\n", c.Front, c.Back, c.Score())
 	}
+
+	writ.Flush()
 }
 
-// fw returns a string of len w by appending spaces to string val of v.
-func fw(v interface{}, width int) string {
-	s := fmt.Sprint(v)
-	ss := ""
-	for i := 0; i < width - len(s); i++ {
-		ss += " "
-	}
-	return s + ss
-}

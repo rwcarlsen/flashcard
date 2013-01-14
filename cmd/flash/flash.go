@@ -59,12 +59,3 @@ func main() {
 	f.Close()
 }
 
-// fw returns a string of len w by appending spaces to string val of v.
-func fw(v interface{}, width int) string {
-	s := fmt.Sprint(v)
-	ss := ""
-	for i := 0; i < width - len(s); i++ {
-		ss += " "
-	}
-	return s + ss
-}
