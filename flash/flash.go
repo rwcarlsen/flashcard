@@ -2,6 +2,7 @@
 package flash
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"encoding/json"
@@ -44,6 +45,15 @@ func (s *Set) Save(w io.Writer) error {
 
 func (s *Set) AddCard(cards ...*Card) {
 	s.Cards = append(s.Cards, cards...)
+}
+
+func (s *Set) DuplicateOf(card *Card) *Card {
+	for _, c := range s.Cards {
+		if c.Front == card.Front {
+			return c
+		}
+	}
+	return nil
 }
 
 func (s *Set) Next(scoreWeight, timeWeight float64) *Card {
@@ -142,6 +152,10 @@ func (c *Card) AddView(pass bool) {
 		Date: time.Now(),
 	}
 	c.Hist = append(c.Hist, v)
+}
+
+func (c *Card) String() string {
+	return fmt.Sprintf("Front: %v\tBack: %v", c.Front, c.Back)
 }
 
 type View struct {

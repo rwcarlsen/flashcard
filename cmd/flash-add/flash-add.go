@@ -9,6 +9,8 @@ import (
 	"github.com/rwcarlsen/flashcard/flash"
 )
 
+var force = flag.Bool("force", false, "force creation despite apparent duplication")
+
 func main() {
 	flag.Parse()
 	if len(flag.Args()) != 3 {
@@ -31,7 +33,13 @@ func main() {
 		f.Close()
 	}
 
-	set.AddCard(flash.NewCard(front, back))
+	card := flash.NewCard(front, back)
+	if !*force {
+		if c := set.DuplicateOf(card); c != nil {
+			log.Fatalf("Duplicate already exists: %v", c)
+		}
+	}
+	set.AddCard(card)
 
 	// save changes
 	if f, err = os.Create(path); err != nil {
