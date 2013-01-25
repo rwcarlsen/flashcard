@@ -36,7 +36,7 @@ func main() {
 	fmt.Fprint(writ, "Front\tBack\tScore\n")
 	fmt.Fprint(writ, "-------\t------\t------\n")
 	for _, c := range set.Cards {
-		fmt.Fprintf(writ, "%v\t%v\t%v\n", c.Front, c.Back, c.Score())
+		fmt.Fprintf(writ, "%v\t%v\t%v\n", c.Front, c.Back, c.Score)
 	}
 
 	writ.Flush()

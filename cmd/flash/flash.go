@@ -6,6 +6,7 @@ import (
 	"log"
 	"flag"
 	"os"
+	"strings"
 
 	"github.com/rwcarlsen/flashcard/flash"
 )
@@ -32,20 +33,26 @@ func main() {
 
 	for i := 0; i < *count; i++ {
 		c := set.Next(*sw, *tw)
-		var pass bool
+		ans := ""
 		fmt.Printf("----------- Card %v -----------\n", i+1)
 		if *back {
 			fmt.Printf(" Back: %v\n Pass: ", c.Back)
-			if _, err := fmt.Scanf("%t\n", &pass); err != nil {
-				log.Fatal()
+			if _, err := fmt.Scanln(&ans); err != nil {
+				log.Fatal(err)
 			}
 			fmt.Printf("Front: %v\n", c.Front)
 		} else {
 			fmt.Printf("Front: %v\n Pass: ", c.Front)
-			if _, err := fmt.Scanf("%t\n", &pass); err != nil {
-				log.Fatal()
+			if _, err := fmt.Scanln(&ans); err != nil {
+				log.Fatal(err)
 			}
 			fmt.Printf(" Back: %v\n", c.Back)
+		}
+
+		pass := false
+		switch strings.ToLower(ans) {
+		case "t", "true", "y", "yes":
+			pass = true
 		}
 		c.AddView(pass)
 	}
