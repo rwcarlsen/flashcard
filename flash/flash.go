@@ -14,7 +14,7 @@ import (
 
 const (
 	initScore = 0.00001
-	timeFmt = "2006-01-02 15:04:05.999999999 -0700 MST"
+	timeFmt = time.ANSIC
 )
 
 type Set struct {
