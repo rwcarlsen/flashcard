@@ -31,6 +31,8 @@ func Load(r io.Reader) (*Set, error) {
 			break
 		} else if isPrefix {
 			return nil, fmt.Errorf("line %v: line is too long", i)
+		} else if len(strings.TrimSpace(string(line))) == 0 {
+			continue
 		}
 
 		cells := strings.Split(string(line), "  ")
