@@ -36,17 +36,19 @@ func main() {
 		ans := ""
 		fmt.Printf("----------- Card %v -----------\n", i+1)
 		if *back {
-			fmt.Printf(" Back: %v\n Pass: ", c.Back)
-			if _, err := fmt.Scanln(&ans); err != nil {
-				log.Fatal(err)
-			}
-			fmt.Printf("Front: %v\n", c.Front)
-		} else {
+			fmt.Printf(" Back: %v", c.Back)
+			fmt.Scanln()
 			fmt.Printf("Front: %v\n Pass: ", c.Front)
 			if _, err := fmt.Scanln(&ans); err != nil {
 				log.Fatal(err)
 			}
-			fmt.Printf(" Back: %v\n", c.Back)
+		} else {
+			fmt.Printf("Front: %v", c.Front)
+			fmt.Scanln()
+			fmt.Printf(" Back: %v\n Pass: ", c.Back)
+			if _, err := fmt.Scanln(&ans); err != nil {
+				log.Fatal(err)
+			}
 		}
 
 		pass := false
