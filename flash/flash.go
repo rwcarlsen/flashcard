@@ -6,10 +6,11 @@ import (
 	"io"
 	"time"
 	"math/rand"
-	"text/tabwriter"
 	"bufio"
 	"strings"
 	"strconv"
+
+	"github.com/rwcarlsen/flashcard/tabwriter"
 )
 
 const (

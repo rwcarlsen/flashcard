@@ -13,7 +13,6 @@ package tabwriter
 import (
 	"bytes"
 	"io"
-	"unicode/utf8"
 
 	"github.com/rwcarlsen/flashcard/colwidth"
 )
@@ -380,7 +379,7 @@ func (b *Writer) append(text []byte) {
 
 // Update the cell width.
 func (b *Writer) updateWidth() {
-	b.cell.width += utf8.RuneCount(b.buf.Bytes()[b.pos:b.buf.Len()])
+	b.cell.width += colwidth.String(string(b.buf.Bytes()[b.pos:b.buf.Len()]))
 	b.pos = b.buf.Len()
 }
 

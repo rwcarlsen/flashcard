@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"flag"
-	"text/tabwriter"
 
+	"github.com/rwcarlsen/flashcard/tabwriter"
 	"github.com/rwcarlsen/flashcard/flash"
 )
 
