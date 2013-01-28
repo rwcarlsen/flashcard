@@ -7,6 +7,7 @@ import (
 	"flag"
 	"os"
 	"strings"
+	"math/rand"
 
 	"github.com/rwcarlsen/flashcard/flash"
 )
@@ -14,6 +15,7 @@ import (
 var sw = flag.Float64("sw", 3, "score weight for flash probability")
 var tw = flag.Float64("tw", 1, "last view weight for flash probability")
 var back = flag.Bool("back", false, "flash card backs instead of fronts")
+var bi = flag.Bool("bi", false, "randomly show either front or back of cards")
 var count = flag.Int("n", 5, "number of times/cards to flash")
 
 func main() {
@@ -35,6 +37,9 @@ func main() {
 		c := set.Next(*sw, *tw)
 		ans := ""
 		fmt.Printf("----------- Card %v -----------\n", i+1)
+		if *bi {
+			*back = rand.Float64() > 0.5
+		}
 		if *back {
 			fmt.Printf(" Back: %v", c.Back)
 			fmt.Scanln()
