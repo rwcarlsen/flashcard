@@ -46,6 +46,7 @@ func main() {
 			scanline()
 			fmt.Printf("Front: %v\n Pass: ", c.Front)
 			if err := scanline(&ans); err != nil {
+				save(set, path)
 				log.Fatal(err)
 			}
 		} else {
@@ -53,6 +54,7 @@ func main() {
 			scanline()
 			fmt.Printf(" Back: %v\n Pass: ", c.Back)
 			if err := scanline(&ans); err != nil {
+				save(set, path)
 				log.Fatal(err)
 			}
 		}
@@ -64,9 +66,13 @@ func main() {
 		}
 		c.AddView(pass)
 	}
+	save(set, path)
+}
 
+func save(set *flash.Set, path string) {
 	// save changes
-	if f, err = os.Create(path); err != nil {
+	f, err := os.Create(path)
+	if err != nil {
 		log.Fatal(err)
 	} else if err := set.Save(f); err != nil {
 		log.Fatal(err)
