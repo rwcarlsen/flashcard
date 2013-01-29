@@ -26,7 +26,7 @@ type Set struct {
 func Load(r io.Reader) (*Set, error) {
 	buf := bufio.NewReader(r)
 	s := &Set{}
-	for i := 0; true; i++ {
+	for i := 1; true; i++ {
 		line, isPrefix, err := buf.ReadLine()
 		if err == io.EOF {
 			break
@@ -62,7 +62,7 @@ func Load(r io.Reader) (*Set, error) {
 		if len(items) > 2 {
 			date, err = time.Parse(timeFmt, items[2])
 			if err != nil {
-				return nil, fmt.Errorf("line %v: %v", i+1, err)
+				return nil, fmt.Errorf("line %v: %v", i, err)
 			}
 		}
 
@@ -71,6 +71,7 @@ func Load(r io.Reader) (*Set, error) {
 			Back: items[1],
 			Date: date,
 			Score: score,
+			Line: i,
 		}
 		s.Cards = append(s.Cards, c)
 	}
@@ -168,6 +169,7 @@ type Card struct {
 	Date time.Time
 	// Score between 0 and 1. 0 means don't know well, 1 means know well
 	Score float64
+	Line int
 }
 
 func NewCard(front, back string) *Card {
