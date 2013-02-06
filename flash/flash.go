@@ -46,10 +46,6 @@ func Load(r io.Reader) (*Set, error) {
 			items = append(items, data)
 		}
 
-		if len(items) < 2 {
-			return nil, fmt.Errorf("line %v: Need at least 2 items per column, got %v", i, len(items))
-		}
-
 		score := initScore
 		if len(items) > 3 {
 			score, err = strconv.ParseFloat(items[3], 64)
@@ -66,9 +62,14 @@ func Load(r io.Reader) (*Set, error) {
 			}
 		}
 
+		back := ""
+		if len(items) > 1 {
+			back = items[1]
+		}
+
 		c := &Card{
 			Front: items[0],
-			Back: items[1],
+			Back: back,
 			Date: date,
 			Score: score,
 			Line: i,
